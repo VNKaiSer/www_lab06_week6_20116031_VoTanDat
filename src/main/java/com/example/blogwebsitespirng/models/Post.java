@@ -1,4 +1,4 @@
-package com.example.blogwebsitespirng.model;
+package com.example.blogwebsitespirng.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;

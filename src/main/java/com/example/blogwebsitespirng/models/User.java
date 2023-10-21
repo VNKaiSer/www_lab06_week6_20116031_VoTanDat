@@ -1,7 +1,6 @@
-package com.example.blogwebsitespirng.model;
+package com.example.blogwebsitespirng.models;
 
 import jakarta.persistence.*;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
