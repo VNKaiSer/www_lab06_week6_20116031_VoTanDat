@@ -1,9 +1,7 @@
 package com.example.blogwebsitespirng.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +15,9 @@ import java.time.Instant;
 @NoArgsConstructor
 public class User {
     @Id
-    private String Id;
+    @GeneratedValue(strategy  = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private long Id;
     @Column(name = "first_name", length = 50)
     private String firstName;
     @Column(name = "middle_name", length = 50)
