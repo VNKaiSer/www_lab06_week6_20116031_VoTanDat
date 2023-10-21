@@ -23,7 +23,7 @@ public class PostComment {
     private Post post;
 
     @OneToMany
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "comment_id")
     private Set<PostComment> postComments;
     private String title;
     private String content;
