@@ -17,7 +17,7 @@ public class Post {
     @Id
     @Column(name = "post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
     private boolean published;
 
@@ -29,7 +29,7 @@ public class Post {
     @JoinColumn(name = "parent_id")
     private Post parent;
 
-    @Column(name = "mate_title")
+    @Column(name = "meta_title")
     private String metaTitle;
     private String summary;
     @Column(name = "created_at")
