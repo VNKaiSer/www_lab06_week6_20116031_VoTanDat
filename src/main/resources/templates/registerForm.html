@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/fragments/head :: head"></head>
 <body>
 
@@ -11,22 +10,37 @@
 
     <h2>Register new user</h2>
 
-    <form action="#"
-          th:action="@{/register}"
-          th:object="${blogUser}"
+    <form
+          th:action="@{/signup}"
           method="post">
+        <div th:if="${error}" class="alert alert-danger" role="alert">
+            <p th:text="${error}"></p>
+        </div>
+
         <div>
             <label>
-                <div class="alert-red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error
-                </div>
-                <input type="text" th:field="*{username}" placeholder="Username"/>
+                <input type="text" name="username" placeholder="Username" required/>
             </label>
         </div>
         <div>
             <label>
-                <div class="alert-red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error
-                </div>
-                <input type="password" th:field="*{password}" placeholder="Password"/>
+                <input type="tel" name="mobile" placeholder="Mobile" required/>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="email" name="email" placeholder="Email" required/>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="password" name="password" placeholder="Password" required/>
+            </label>
+        </div>
+        <div>
+            <label>
+
+                <input type="Repassword" name="Repassword" placeholder="Repeat Password"/>
             </label>
         </div>
         <div>

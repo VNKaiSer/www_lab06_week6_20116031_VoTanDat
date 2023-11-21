@@ -23,14 +23,15 @@ dependencies {
     implementation 'org.springframework.data:spring-data-rest-core:4.1.4'
     // DB
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.2.0'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     // Lombok
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly 'org.projectlombok:lombok:1.18.30'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
 //  Temporary explicit version to fix Thymeleaf bug
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
-    implementation 'org.springframework.security:spring-security-test'
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
