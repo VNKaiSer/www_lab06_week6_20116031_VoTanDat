@@ -21,8 +21,20 @@
         </div>
         <div>
             <label>
-                <div class="alert-red" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
-                <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>
+                <div class="alert-red" th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}">Summary Error</div>
+                <input type="text" th:field="*{summary}" placeholder="Summary"/>
+            </label>
+        </div>
+        <div>
+            <label>
+                <div class="alert-red" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Body Error</div>
+                <textarea th:field="*{content}" placeholder="Write something valuable"></textarea>
+            </label>
+        </div>
+        <div>
+            <label>
+                isPublished
+                <input type="checkbox" th:field="*{published}" placeholder="Summary"/>
             </label>
         </div>
         <div class="float-left">

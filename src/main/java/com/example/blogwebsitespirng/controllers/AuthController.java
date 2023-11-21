@@ -73,4 +73,10 @@ public class AuthController {
             return "redirect:/login";
         }
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
 }
