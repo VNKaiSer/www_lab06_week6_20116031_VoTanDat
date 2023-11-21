@@ -11,7 +11,6 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-@NoArgsConstructor
 @Table(name = "posts")
 public class Post {
     @Id
@@ -45,6 +44,7 @@ public class Post {
     private Instant updateAt;
     @JoinColumn(name = "published_at")
     private Instant publishedAt;
+    @Column(name = "content", columnDefinition = "TEXT")
     private  String content;
 
     public Post() {

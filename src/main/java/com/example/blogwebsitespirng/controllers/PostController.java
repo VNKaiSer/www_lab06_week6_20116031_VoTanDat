@@ -52,24 +52,16 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String getPost(@PathVariable Long id, Model model, HttpSession session) {
 
-        // Just curious  what if we get username from Principal instead of SecurityContext
         String authUsername = "anonymousUser";
         User user = (User) session.getAttribute("user");
         if (user != null) {
             authUsername = user.getFirstName();
         }
-        // the end of curiosity //
 
-//        // get username of current logged in session user
-//        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        // find post by id
         Optional<Post> optionalPost = this.postService.getPostById(id);
-        // if post exist put it in model
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
             model.addAttribute("post", post);
-            // Check if current logged in user is owner and let view template know to take according actions
             if (authUsername.equals(post.getAuthor().getFirstName())) {
                 model.addAttribute("isOwner", true);
             }
@@ -78,4 +70,59 @@ public class PostController {
             return "404";
         }
     }
+
+    @GetMapping("editPost/{id}")
+    public String editPost(@PathVariable Long id, Model model, HttpSession session) {
+        String authUsername = "anonymousUser";
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            authUsername = user.getFirstName();
+        }
+
+        Optional<Post> optionalPost = this.postService.getPostById(id);
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            // Check if current logged in user is owner
+            if (authUsername.equals(post.getAuthor().getFirstName())) {
+                model.addAttribute("post", post);
+                System.err.println("EDIT post: " + post); // for testing debugging purposes
+                return "postForm";
+            } else {
+                System.err.println("Current User has no permissions to edit anything on post by id: " + id); // for testing debugging purposes
+                return "403";
+            }
+        } else {
+            System.err.println("Could not find a post by id: " + id);
+            return "error";
+        }
+    }
+
+    @GetMapping("/deletePost/{id}")
+    public String deletePost(@PathVariable Long id, HttpSession session) {
+
+        String authUsername = "anonymousUser";
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            authUsername = user.getFirstName();
+        }
+
+        Optional<Post> optionalPost = this.postService.getPostById(id);
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            // Check if current logged in user is owner
+            if (authUsername.equals(post.getAuthor().getFirstName())) {
+                // if so then it is safe to remove post from database
+                this.postService.deletePost(post);
+                System.err.println("DELETED post: " + post); // for testing debugging purposes
+                return "redirect:/";
+            } else {
+                System.err.println("Current User has no permissions to edit anything on post by id: " + id); // for testing debugging purposes
+                return "403";
+            }
+        } else {
+            System.err.println("Could not find a post by id: " + id); // for testing debugging purposes
+            return "error";
+        }
+    }
+
 }
