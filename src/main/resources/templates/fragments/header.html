@@ -9,17 +9,17 @@
 <header th:fragment="header">
     <div class="topnav">
         <a class="active" th:href="@{/}">Home</a>
-        <a class="left" th:href="@{/createNewPost}">New Post</a>
-<!--        </span>-->
-<!--        <span sec:authorize="isAuthenticated()">-->
-<!--        <a class="right" th:href="@{/logout}">Logout</a>-->
-<!--        </span>-->
-<!--        <span sec:authorize="isAuthenticated()">-->
-<!--            <a class="right">Welcome <span sec:authentication="name">name?</span></a>-->
-<!--        </span>-->
-<!--        <span sec:authorize="!isAuthenticated()">-->
-        <a class="right" th:href="@{/login}">Log In</a>
-        <a class="right" th:href="@{/signup}">Sign Up</a>
+        <a class="left" th:if="${session.isLogin} == true" th:href="@{/createNewPost}">New Post</a>
+        </span>
+        <span th:if="${session.isLogin} == true">
+        <a class="right" th:href="@{/logout}">Logout</a>
+        </span>
+        <span th:if="${session.isLogin} == true">
+            <a class="right">Welcome <span th:text="${session.user.getFirstName()}">to name?</span></a>
+        </span>
+        <span th:if="${session.isLogin == null or session.isLogin == false}">
+            <a class="right" th:href="@{/login}">Log In</a>
+            <a class="right" th:href="@{/signup}">Sign Up</a>
         </span>
     </div>
     <div class="header">
