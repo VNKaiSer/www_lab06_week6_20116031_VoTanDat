@@ -20,4 +20,9 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findUserByMobile(String mobile){
         return userRepository.findUserByMobile(mobile);
     }
+
+    @Override
+    public Optional<User> findByUsername(String authUsername) {
+        return userRepository.findUserByFirstName(authUsername);
+    }
 }

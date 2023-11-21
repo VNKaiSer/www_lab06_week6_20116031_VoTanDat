@@ -3,7 +3,6 @@ package com.example.blogwebsitespirng.controllers;
 import com.example.blogwebsitespirng.models.Post;
 import com.example.blogwebsitespirng.services.PostService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
