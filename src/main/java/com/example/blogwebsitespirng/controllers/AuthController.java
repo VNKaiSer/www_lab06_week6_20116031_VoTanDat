@@ -4,10 +4,13 @@ import com.example.blogwebsitespirng.helper.AuthHelper;
 import com.example.blogwebsitespirng.models.User;
 import com.example.blogwebsitespirng.repositories.UserRepository;
 import com.example.blogwebsitespirng.services.AuthService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpCookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,7 +58,8 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestParam(name = "username") String username,
                         @RequestParam(name = "password") String password,
-                        HttpSession session) {
+                        HttpSession session,
+                        HttpServletResponse response) {
 
         if (authService.userLogin(username, password)) {
 
@@ -66,6 +70,9 @@ public class AuthController {
                 user = userRepository.findUserByMobile(username).get();
             }
 
+            // set session
+            response.addCookie(new Cookie("username", user.getFirstName()));
+            response.addCookie(new Cookie("isLogin", "true"));
             session.setAttribute("isLogin", true);
             session.setAttribute("user", user);
             return "redirect:/";
@@ -75,8 +82,10 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, HttpServletResponse response) {
         session.invalidate();
+        response.addCookie(new Cookie("isLogin", "false"));
+        response.addCookie(new Cookie("username", ""));
         return "redirect:/login";
     }
 }
